@@ -2,24 +2,17 @@
 
 aa = game:GetObjects("rbxassetid://01997056190")[1]
 aa.Parent = game.CoreGui
-wait(0.2)
+task.wait(0.2)
 GUI = aa.PopupFrame.PopupFrame
 pos = 0
 
-ignore = {
-	"rbxasset://sounds/action_get_up.mp3",
-	"rbxasset://sounds/uuhhh.mp3",
-	"rbxasset://sounds/action_falling.mp3",
-	"rbxasset://sounds/action_jump.mp3",
-	"rbxasset://sounds/action_jump_land.mp3",
-	"rbxasset://sounds/impact_water.mp3",
-	"rbxasset://sounds/action_swim.mp3",
-	"rbxasset://sounds/action_footsteps_plastic.mp3"
-}
+ignore = {"rbxasset://sounds/action_get_up.mp3", "rbxasset://sounds/uuhhh.mp3", "rbxasset://sounds/action_falling.mp3", "rbxasset://sounds/action_jump.mp3", "rbxasset://sounds/action_jump_land.mp3", "rbxasset://sounds/impact_water.mp3", "rbxasset://sounds/action_swim.mp3", "rbxasset://sounds/action_footsteps_plastic.mp3"}
 
 GUI.Close.MouseButton1Click:connect(function()
-	GUI:TweenSize(UDim2.new(0, 360, 0, 0),"Out","Quad",0.5,true) wait(0.6)
-	GUI.Parent:TweenSize(UDim2.new(0, 0, 0, 20),"Out","Quad",0.5,true) wait(0.6)
+	GUI:TweenSize(UDim2.new(0, 360, 0, 0),"Out","Quad",0.5,true)
+	task.wait(0.6)
+	GUI.Parent:TweenSize(UDim2.new(0, 0, 0, 20),"Out","Quad",0.5,true)
+	task.wait(0.6)
 	itemadded:Disconnect()
 	aa:Destroy()
 end)
@@ -27,9 +20,11 @@ end)
 local min = false
 GUI.Minimize.MouseButton1Click:connect(function()
 	if min == false then
-		GUI:TweenSize(UDim2.new(0, 360, 0, 20),"Out","Quad",0.5,true) min = true
+		GUI:TweenSize(UDim2.new(0, 360, 0, 20),"Out","Quad",0.5,true)
+		min = true
 	else
-		GUI:TweenSize(UDim2.new(0, 360, 0, 260),"Out","Quad",0.5,true) min = false
+		GUI:TweenSize(UDim2.new(0, 360, 0, 260),"Out","Quad",0.5,true)
+		min = false
 	end
 end)
 
@@ -42,17 +37,14 @@ function printTable(tbl)
 		-- if inPrefix then print(string.rep(' ', depthCount) .. '{') end
 		for i,v in pairs(val) do
 			if type(v) == 'table' then
-				-- print(string.rep(' ', depthCount) .. ' [' .. tostring(i) .. '] = {')
 				GUI.Store.Text = GUI.Store.Text..'\n'..string.rep(' ', depthCount) .. ' [' .. tostring(i) .. '] = {'
 				run(v, false)
 				wait()
 			else
-				-- print(string.rep(' ', depthCount) .. ' [' .. tostring(i) .. '] = ' .. tostring(v))
 				GUI.Store.Text = GUI.Store.Text..'\n'..string.rep(' ', depthCount) .. ' [' .. tostring(i) .. '] = ' .. tostring(v)
 				wait()
 			end
 		end
-		-- print(string.rep(' ', depthCount) .. '}')
 		depthCount = depthCount - 15
 	end
 	run(tbl, true)
@@ -64,7 +56,7 @@ function refreshlist()
 	for i,v in pairs(GUI.Logs:GetChildren()) do
 		v.Position = UDim2.new(0,0,0, pos)
 		GUI.Logs.CanvasSize = UDim2.new(0,0,0, pos+20)
-		pos = pos+20
+		pos += 20
 	end
 end
 
@@ -88,7 +80,8 @@ GUI.SS.MouseButton1Click:connect(function()
 	if writefileExploit() then
 		if running == false then
 			GUI.Load.Visible = true running = true
-			GUI.Load:TweenSize(UDim2.new(0, 360, 0, 20),"Out","Quad",0.5,true) wait(0.3)
+			GUI.Load:TweenSize(UDim2.new(0, 360, 0, 20),"Out","Quad",0.5,true)
+			task.wait(0.3)
 			for _, child in pairs(GUI.Logs:GetChildren()) do
 				if child:FindFirstChild('ImageButton') then local bttn = child:FindFirstChild('ImageButton')
 					if bttn.BackgroundTransparency == 0 then
@@ -98,7 +91,7 @@ GUI.SS.MouseButton1Click:connect(function()
 			end
 			GUI.Store.Visible = true
 			printTable(writeaudio)
-			wait(0.2)
+			task.wait(0.2)
 			local filename = 0
 			local function write()
 				local file
@@ -114,8 +107,8 @@ GUI.SS.MouseButton1Click:connect(function()
 			end
 			write()
 			for rep = 1,10 do
-				GUI.Load.BackgroundTransparency = GUI.Load.BackgroundTransparency + 0.1
-				wait(0.05)
+				GUI.Load.BackgroundTransparency += 0.1
+				task.wait(0.05)
 			end
 			GUI.Load.Visible = false
 			GUI.Load.BackgroundTransparency = 0
@@ -145,13 +138,14 @@ GUI.SA.MouseButton1Click:connect(function()
 	if writefileExploit() then
 		if running == false then
 			GUI.Load.Visible = true running = true
-			GUI.Load:TweenSize(UDim2.new(0, 360, 0, 20),"Out","Quad",0.5,true) wait(0.3)
+			GUI.Load:TweenSize(UDim2.new(0, 360, 0, 20),"Out","Quad",0.5,true)
+			task.wait(0.3)
 			for _, child in pairs(GUI.Logs:GetChildren()) do
 				writeaudio[#writeaudio + 1] = {NAME = child.NAME.Value, ID = child.ID.Value}
 			end
 			GUI.Store.Visible = true
 			printTable(writeaudio)
-			wait(0.2)
+			task.wait(0.2)
 			local filename = 0
 			local function write()
 				local file
@@ -167,8 +161,8 @@ GUI.SA.MouseButton1Click:connect(function()
 			end
 			write()
 			for rep = 1,10 do
-				GUI.Load.BackgroundTransparency = GUI.Load.BackgroundTransparency + 0.1
-				wait(0.05)
+				GUI.Load.BackgroundTransparency += 0.1
+				task.wait(0.05)
 			end
 			GUI.Load.Visible = false
 			GUI.Load.BackgroundTransparency = 0
@@ -198,7 +192,8 @@ selectedaudio = nil
 function getaudio(place)
 	if running == false then
 		GUI.Load.Visible = true running = true
-		GUI.Load:TweenSize(UDim2.new(0, 360, 0, 20),"Out","Quad",0.5,true) wait(0.3)
+		GUI.Load:TweenSize(UDim2.new(0, 360, 0, 20),"Out","Quad",0.5,true)
+		task.wait(0.3)
 		for _, child in pairs(place:GetDescendants()) do
 			spawn(function()
 				if child:IsA("Sound") and not GUI.Logs:FindFirstChild(child.SoundId) and not FindTable(ignore,child.SoundId) then
@@ -252,8 +247,8 @@ function getaudio(place)
 		end
 	end
 	for rep = 1,10 do
-		GUI.Load.BackgroundTransparency = GUI.Load.BackgroundTransparency + 0.1
-		wait(0.05)
+		GUI.Load.BackgroundTransparency += 0.1
+		task.wait(0.05)
 	end
 	GUI.Load.Visible = false
 	GUI.Load.BackgroundTransparency = 0
@@ -307,7 +302,7 @@ GUI.AutoScan.MouseButton1Click:connect(function()
 end)
 
 itemadded = game.DescendantAdded:connect(function(added)
-	wait()
+	task.wait()
 	if autoscan == true and added:IsA('Sound') and not GUI.Logs:FindFirstChild(added.SoundId) and not FindTable(ignore,added.SoundId) then
 		local id = string.match(added.SoundId, "rbxasset://sounds.+") or string.match(added.SoundId, "&hash=.+") or string.match(added.SoundId, "%d+")
 		if id ~= nil then		
